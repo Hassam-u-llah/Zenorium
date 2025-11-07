@@ -53,13 +53,131 @@
             opacity: 0.8;
         }
 
+        .main-container {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9;
+            flex-direction: row;
+        }
+
+        .main-container.show {
+            display: flex;
+        }
+
+        .left-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        .dp-and-texts {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .round-image {
+            width: 150px; /* Made bigger */
+            height: 150px; /* Made bigger */
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #333);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.8s ease;
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .round-image.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .round-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .texts {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .university-text {
+            font-size: 2rem; /* Made bigger */
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 0.8s ease;
+        }
+
+        .university-text.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .subtitle {
+            font-size: 1.2rem; /* Made bigger */
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 0.8s ease 0.2s;
+        }
+
+        .subtitle.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .portal-text {
+            font-size: 1.5rem; /* Made bigger */
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease 0.5s;
+            background: linear-gradient(45deg, #00d4ff, #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .portal-text.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .login-container {
             display: none;
             flex-direction: column;
             align-items: center;
             opacity: 0;
-            transform: translateY(100px) scale(0.8);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(50px);
+            transition: all 0.8s ease;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 20px;
@@ -70,7 +188,7 @@
         .login-container.show {
             display: flex;
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
         .dp-container {
@@ -189,35 +307,135 @@
 
 <div class="header" id="header">ZENORIUM</div>
 
-<!-- ✅ PHP LOGIN FORM STARTS HERE -->
-<div class="login-container" id="loginContainer">
-    <div class="dp-container">
-        <div class="dp-text">This project is founded by HASSAM U LLAH.</div>
+<div class="main-container" id="mainContainer">
+    <div class="left-section">
+        <div class="dp-and-texts">
+            <div class="round-image" id="roundImage">
+                <img id="randomDP" src="" alt="Random DP">
+            </div>
+            <div class="texts">
+                <div class="university-text" id="universityText">National University</div>
+                <div class="subtitle" id="subtitle">of computer and emerging sciences</div>
+            </div>
+        </div>
     </div>
+    <div class="right-section">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="portal-text" id="portalText">A F L E X Academic Portal</div>
+        <!-- ✅ PHP LOGIN FORM STARTS HERE -->
+        <div class="login-container" id="loginContainer">
+            <div class="dp-container">
+            </div>
 
-    <form action="cybercrime.php" method="POST">
-        <div class="input-group">
-            <input type="text" name="username" placeholder="Username" required>
+            <form action="cybercrime.php" method="POST">
+                <div class="input-group">
+                    <input type="text" name="username" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit">Login</button>
+                <div class="error">Session expired. Please login again.</div>
+            </form>
         </div>
-        <div class="input-group">
-            <input type="password" name="password" placeholder="Password" required>
-        </div>
-        <button type="submit">Login</button>
-        <div class="error">Session expired. Please login again.</div>
-    </form>
+        <!-- ✅ PHP LOGIN FORM ENDS HERE -->
+    </div>
 </div>
-<!-- ✅ PHP LOGIN FORM ENDS HERE -->
 
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
     const header = document.getElementById('header');
+    const mainContainer = document.getElementById('mainContainer');
+    const roundImage = document.getElementById('roundImage');
+    const universityText = document.getElementById('universityText');
+    const subtitle = document.getElementById('subtitle');
+    const portalText = document.getElementById('portalText');
     const loginContainer = document.getElementById('loginContainer');
+    const randomDP = document.getElementById('randomDP');
+
+    // Function to get a random DP from a public API (e.g., randomuser.me)
+    function setRandomDP() {
+        const randomId = Math.floor(Math.random() * 100) + 1; // Random ID from 1 to 100
+        randomDP.src = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRwxwctNvJKXHnvgEjhcGdrWtePuNu5fU7KB9cHKNSf9Z1OzWsGP-q5P4w_VNW0ZCisqU&usqp=CAU`; // Using randomuser.me for random male portraits
+    }
 
     header.addEventListener('click', () => {
         header.classList.add('shrunk');
         setTimeout(() => {
-            loginContainer.classList.add('show');
+            mainContainer.classList.add('show');
+            setRandomDP(); // Set random DP when intro starts
+            setTimeout(() => {
+                roundImage.classList.add('show');
+                setTimeout(() => {
+                    universityText.classList.add('show');
+                    subtitle.classList.add('show');
+                    setTimeout(() => {
+                        portalText.classList.add('show');
+                        setTimeout(() => {
+                            loginContainer.classList.add('show');
+                        }, 1000);
+                    }, 500);
+                }, 500);
+            }, 500);
         }, 500);
+    });
+
+// Typing effect function
+    function typeText(element, text, speed = 100) {
+        let i = 0;
+        element.textContent = '';
+        const timer = setInterval(() => {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(timer);
+            }
+        }, speed);
+    }
+
+    header.addEventListener('click', () => {
+        header.classList.add('shrunk');
+        setTimeout(() => {
+            mainContainer.classList.add('show');
+            setRandomDP(); // Set random DP when intro starts
+            setTimeout(() => {
+                roundImage.classList.add('show');
+                setTimeout(() => {
+                    universityText.classList.add('show');
+                    subtitle.classList.add('show');
+                    setTimeout(() => {
+                        portalText.classList.add('show');
+                        // Start typing after fade-in
+                        setTimeout(() => {
+                            typeText(portalText, '𝘍𝘓𝘌𝘟 𝘈𝘊𝘈𝘋𝘌𝘔𝘐𝘊 𝘗𝘖𝘙𝘛𝘈𝘓', 150);
+                            // After typing completes, show login container
+                            setTimeout(() => {
+                                loginContainer.classList.add('show');
+                            }, '𝘍𝘓𝘌𝘟 𝘈𝘊𝘈𝘋𝘌𝘔𝘐𝘊 𝘗𝘖𝘙𝘛𝘈𝘓'.length * 150 + 500); // Adjust delay based on typing speed
+                        }, 200);
+                    }, 500);
+                }, 500);
+            }, 500);
+        }, 500);
+    });
+
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 80 },
+            color: { value: '#00d4ff' },
+            shape: { type: 'circle' },
+            opacity: { value: 0.5 },
+            size: { value: 3 },
+            move: { speed: 2 }
+        },
+        interactivity: {
+            events: { onhover: { enable: true, mode: 'repulse' } }
+        }
     });
 
     particlesJS('particles-js', {
