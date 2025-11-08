@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WARNING</title>
+    <title>ACCOUNT COMPROMISED</title>
     <style>
         body {
             margin: 0;
@@ -96,19 +96,14 @@
             will-change: opacity, transform, z-index;
         }
 
-        .spinning-icon {
+        .pre-warning-terminal {
             display: none;
-            font-size: 120px; /* Start big */
-            animation: spinMoveUpContinuous 4s ease-in-out forwards;
-            margin-bottom: 20px;
-            transform: translateZ(20px);
-            will-change: transform, font-size;
-        }
-
-        @keyframes spinMoveUpContinuous {
-            0% { transform: translateZ(20px) translateY(0) scale(1) rotate(0deg); font-size: 120px; }
-            50% { transform: translateZ(20px) translateY(-100px) scale(0.5) rotate(180deg); font-size: 60px; }
-            100% { transform: translateZ(20px) translateY(-100px) scale(0.5) rotate(360deg); font-size: 60px; }
+            font-size: 24px; /* Slightly bigger font size */
+            text-align: center;
+            margin-bottom: 25px;
+            transform: translateZ(15px);
+            color: #0f0; /* Green text */
+            will-change: opacity;
         }
 
         .warning-box {
@@ -149,37 +144,9 @@
             to { text-shadow: 0 0 30px #0f0, 2px 2px 0 #0f0; transform: translateZ(10px) skewX(2deg); }
         }
 
-        .terminal {
-            display: none;
-            font-size: 20px;
-            text-align: center;
-            margin-bottom: 25px;
-            animation: terminalFlicker 1.5s ease-in-out infinite alternate;
-            transform: translateZ(15px);
-            will-change: opacity;
-        }
-
-        @keyframes terminalFlicker {
-            from { opacity: 1; }
-            to { opacity: 0.95; }
-        }
-
         .cursor {
-            animation: blink 1s ease-in-out infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        .additional-terminal {
-            display: none;
-            font-size: 26px;
-            text-align: center;
-            margin-top: 20px;
-            transform: translateZ(15px);
-            will-change: opacity;
+            font-size: 28px; /* Slightly bigger cursor */
+            opacity: 1; /* Static, no blink */
         }
 
         /* Advanced Feature: Energy Wave Pulse */
@@ -240,18 +207,12 @@
         </div>
     </div>
 
-    <div class="spinning-icon">☢️</div>
+    <div class="pre-warning-terminal">
+        <span id="pre-typed-text"></span><span class="cursor">|</span>
+    </div>
 
     <div class="warning-box">
         <div class="warning-text">ACCOUNT COMPROMISED</div>
-    </div>
-
-    <div class="terminal">
-        <span id="typed-text"></span><span class="cursor">|</span>
-    </div>
-
-    <div class="additional-terminal">
-        <span id="additional-typed-text"></span><span class="cursor">|</span>
     </div>
 
     <script>
@@ -269,7 +230,7 @@
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = '#0f0'; // Green for classic hacking
+            ctx.fillStyle = '#2ECC71'; // Green for classic hacking
             ctx.font = fontSize + 'px monospace';
 
             for (let i = 0; i < drops.length; i++) {
@@ -289,19 +250,14 @@
         setTimeout(() => {
             document.querySelector('.intro').classList.add('move-to-back');
             setTimeout(() => {
-                document.querySelector('.spinning-icon').style.display = 'block';
-                setTimeout(() => {
-                    document.querySelector('.warning-box').style.display = 'block';
-                    setTimeout(() => {
-                        typeText();
-                    }, 1000);
-                }, 4000); // Wait for icon animation to finish
+                typePreWarningText();
             }, 2000);
         }, 6000);
 
-        function typeText() {
-            const text = "ape ka account compromise ho gaya hai";
-            const typedTextElement = document.getElementById('typed-text');
+        function typePreWarningText() {
+            const text = "An unauthorised person has gained full control over your account.";
+            const typedTextElement = document.getElementById('pre-typed-text');
+            document.querySelector('.pre-warning-terminal').style.display = 'block';
             let index = 0;
 
             const typeInterval = setInterval(() => {
@@ -310,29 +266,12 @@
                     index++;
                 } else {
                     clearInterval(typeInterval);
-                    typedTextElement.classList.add('cursor');
+                    // Cursor remains static, no blinking
                     setTimeout(() => {
-                        typeAdditionalText();
+                        document.querySelector('.warning-box').style.display = 'block';
                     }, 1000);
                 }
             }, 100);
-        }
-
-        function typeAdditionalText() {
-            const text = "Your personal data repository has been infiltrated by multiple unauthorized entities. Sensitive credentials and encrypted identifiers are currently being extracted and analyzed through external command protocols. Immediate containment is required to prevent full-system compromise and irreversible data exposure. Initiate defensive counter-measures at once to restore account integrity.";
-            const typedTextElement = document.getElementById('additional-typed-text');
-            document.querySelector('.additional-terminal').style.display = 'block';
-            let index = 0;
-
-            const typeInterval = setInterval(() => {
-                if (index < text.length) {
-                    typedTextElement.textContent += text.charAt(index);
-                    index++;
-                } else {
-                    clearInterval(typeInterval);
-                    typedTextElement.classList.add('cursor');
-                }
-            }, 50); // Faster typing for paragraph
         }
     </script>
 </body>
