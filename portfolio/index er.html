@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hassam's Portfolio</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Header Styles - Capsule-like, not touching sides */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: calc(100% - 100px); /* Not touching sides */
+            left: 50px;
+            right: 50px;
+            top: 20px;
+            border-radius: 50px; /* Capsule shape */
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin-left: 30px;
+            position: relative;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            padding: 5px 0;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            transition: width 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hamburger Menu for Mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Mobile Nav Overlay */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+            z-index: 999;
+        }
+        .mobile-nav.active {
+            transform: translateX(0);
+        }
+        .mobile-nav ul {
+            list-style: none;
+            text-align: center;
+        }
+        .mobile-nav ul li {
+            margin: 20px 0;
+        }
+        .mobile-nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        .mobile-nav ul li a:hover {
+            color: #ffd700;
+        }
+
+        /* Blur Effect on Content (excluding header) */
+        .content {
+            filter: none;
+            transition: filter 0.3s;
+        }
+        .content.blur {
+            filter: blur(5px);
+        }
+
+        /* Home Section */
+        .home {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 120px 50px 50px;
+            min-height: 100vh;
+        }
+        .left-content {
+            flex: 1;
+            max-width: 50%;
+        }
+        .hello {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .name {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .profession {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff; /* White for "and I am a" */
+        }
+        .profession span {
+            animation: colorCycle 3s infinite; /* Cycling color for profession */
+        }
+        .description {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #e0e0e0;
+        }
+        .social-icons {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .social-icons a {
+            margin-right: 20px;
+            color: #fff;
+            font-size: 24px;
+            transition: transform 0.3s;
+        }
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+        .download-btn {
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            color: #000;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .download-btn:hover {
+            transform: scale(1.1);
+        }
+        .right-content {
+            flex: 1;
+            text-align: center;
+        }
+        .profile-pic {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden; /* To make img circular */
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Fit the image properly */
+            border-radius: 50%;
+        }
+
+        /* Footer - Capsule-shaped */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            margin: 20px auto;
+            width: fit-content;
+            color: #e0e0e0;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animations */
+        @keyframes colorCycle {
+            0%, 100% { color: #ffd700; }
+            50% { color: #ff6b6b; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            header {
+                width: calc(100% - 40px);
+                left: 20px;
+                right: 20px;
+                padding: 15px 20px;
+            }
+            nav ul {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .home {
+                flex-direction: column;
+                text-align: center;
+                padding: 100px 20px 50px;
+            }
+            .left-content {
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+            .right-content {
+                margin-bottom: 30px;
+                order: -1; /* DP at top */
+            }
+            .profile-pic {
+                width: 200px;
+                height: 200px;
+            }
+            .hello {
+                font-size: 28px;
+            }
+            .name {
+                font-size: 36px;
+            }
+            .profession {
+                font-size: 20px;
+            }
+            .description {
+                font-size: 16px;
+            }
+            footer {
+                font-size: 14px;
+                padding: 15px;
+                width: calc(100% - 40px);
+                margin: 20px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Portfolio</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+
+    <div class="mobile-nav" id="mobileNav">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="content" id="content">
+        <section class="home" id="home">
+            <div class="left-content">
+                <div class="hello">Hello, it's me</div>
+                <div class="name">Hassam u llah</div>
+                <div class="profession">and I am a <span id="profession-text"></span></div>
+                <div class="description">
+                    Passionate about creating innovative web experiences and exploring the depths of ethical hacking.<br>
+                    Let's build something amazing together!
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+                <button class="download-btn">Download CV</button>
+            </div>
+            <div class="right-content">
+                <div class="profile-pic">
+                    <img src="founder.jpeg" alt="owner">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        © copyright 2025 All Right Reseved. 
+        Design and Developed by Hassam.
+    </footer>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const content = document.getElementById('content');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            content.classList.toggle('blur'); // Blur only the content, not header
+        });
+
+        // Typewriter Effect for Profession
+        const professions = ['Web Developer.-', 'Ethical Hacker.-'];
+        let professionIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const professionElement = document.getElementById('profession-text');
+        const typingSpeed = 150; // Speed of typing
+        const deletingSpeed = 100; // Speed of deleting
+        const pauseTime = 2000; // Pause before deleting
+
+        function typeWriter() {
+            const currentProfession = professions[professionIndex];
+            if (isDeleting) {
+                professionElement.textContent = currentProfession.substring(0, charIndex--);
+                if (charIndex < 0) {
+                    isDeleting = false;
+                    professionIndex = (professionIndex + 1) % professions.length;
+                    setTimeout(typeWriter, 500); // Pause before typing next
+                } else {
+                    setTimeout(typeWriter, deletingSpeed);
+                }
+            } else {
+                professionElement.textContent = currentProfession.substring(0, charIndex++);
+                if (charIndex === currentProfession.length) {
+                    isDeleting = true;
+                    setTimeout(typeWriter, pauseTime); // Pause before deleting
+                } else {
+                    setTimeout(typeWriter, typingSpeed);
+                }
+            }
+        }
+
+        // Start the typewriter effect
+        typeWriter();
+    </script>
+
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #d9d9da, #4d4e4e, #757f85, #646566);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .welcome {
+            font-size: 3rem;
+            font-weight: 600;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.8), 0 0 90px rgba(0, 123, 255, 0.6);
+            opacity: 0;
+            animation: fadeInGlow 1.5s ease-in-out 0.5s forwards;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(40, 167, 69, 0.7);
+            opacity: 0;
+            animation: fadeInGlow 1.5s ease-in-out 1s forwards;
+            margin-bottom: 20px;
+        }
+
+        .loading {
+            width: 60px;
+            height: 60px;
+            border: 6px dotted #ffffff;
+            border-top: 6px solid #28a745;
+            border-radius: 50%;
+            animation: spinPulse 1.2s linear infinite;
+            margin: 20px auto;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in-out 1.5s forwards, spinPulse 1.2s linear infinite 1.5s;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes spinPulse {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .dp-circle {
+            width: 120px;
+            height: 120px;
+            opacity: 0;
+            animation: fadeInBounce 1.5s ease-in-out 5s forwards, bounceGlow 2s ease-in-out 5s infinite;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .dp-circle img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(0, 123, 255, 0.8), inset 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes bounceGlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .heading {
+            font-size: 1.8rem;
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 0 50px rgba(255, 107, 107, 0.7);
+            opacity: 0;
+            animation: fadeInGlow 1.5s ease-in-out 5.5s forwards;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .portfolio-btn {
+            background: linear-gradient(45deg, #00d4ff, #abd4e7, #696d6e);
+            color: #ffffff;
+            border: none;
+            padding: 18px 35px;
+            font-size: 1.3rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            animation: fadeInGlow 1.5s ease-in-out 6s forwards;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.6);
+            position: relative;
+        }
+
+        .portfolio-btn:hover {
+            transform: scale(1.2) rotate(2deg);
+            box-shadow: 0 0 40px rgba(0, 123, 255, 1), 0 0 80px rgba(255, 107, 107, 0.8);
+        }
+
+        @keyframes fadeInGlow {
+            from { opacity: 0; transform: translateY(30px) scale(0.9); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+
+        @keyframes fadeInBounce {
+            from { opacity: 0; transform: translateY(30px) scale(0.8); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .welcome { font-size: 2.2rem; }
+            .subtitle { font-size: 1.3rem; }
+            .akshilu { font-size: 1.4rem; }
+            .dp-circle { width: 100px; height: 100px; }
+        }
+
+        /* Advanced particle effect with more dynamism */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: floatGlow 8s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes floatGlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            25% { transform: translateY(-30px) rotate(90deg); opacity: 1; }
+            50% { transform: translateY(-60px) rotate(180deg); opacity: 0.7; }
+            75% { transform: translateY(-30px) rotate(270deg); opacity: 1; }
+        }
+
+        /* Additional glow overlay for ultra-advanced feel */
+        .glow-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 123, 255, 0.1) 0%, transparent 70%);
+            animation: pulseGlow 4s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="glow-overlay"></div>
+    <div class="particles">
+        <!-- More dynamic floating particles -->
+        <div class="particle" style="width: 12px; height: 12px; left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="width: 18px; height: 18px; left: 20%; animation-delay: 1s;"></div>
+        <div class="particle" style="width: 10px; height: 10px; left: 30%; animation-delay: 2s;"></div>
+        <div class="particle" style="width: 15px; height: 15px; left: 40%; animation-delay: 3s;"></div>
+        <div class="particle" style="width: 14px; height: 14px; left: 50%; animation-delay: 4s;"></div>
+        <div class="particle" style="width: 16px; height: 16px; left: 60%; animation-delay: 5s;"></div>
+        <div class="particle" style="width: 11px; height: 11px; left: 70%; animation-delay: 6s;"></div>
+        <div class="particle" style="width: 13px; height: 13px; left: 80%; animation-delay: 7s;"></div>
+    </div>
+
+    <div class="welcome">Welcome</div>
+    <div class="subtitle">to My Website</div>
+    <div class="loading"></div>
+    <div class="dp-circle">
+        <img src="founder.jpeg" alt="Owner">
+    </div>
+    <div class="heading">HASSAM U LLAH</div>
+    <a href="index er.html" class="portfolio-btn">Portfolio Website</a>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // JavaScript to hide loading after 3 seconds and continue animations
+        setTimeout(() => {
+            document.querySelector('.loading').style.display = 'none';
+        }, 3000);
+            particlesJS('particles-js', {
+        particles: {
+            number: { value: 80 },
+            color: { value: '#00d4ff' },
+            shape: { type: 'circle' },
+            opacity: { value: 0.5 },
+            size: { value: 3 },
+            move: { speed: 2 }
+        },
+        interactivity: {
+            events: { onhover: { enable: true, mode: 'repulse' } }
+        }
+    });
+    </script>
+</body>
+</html>
